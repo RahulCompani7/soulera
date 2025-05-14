@@ -1,0 +1,345 @@
+{
+ "$id": "pre-registration-schema",
+ "type": "object",
+ "required": [
+   "personalInfo",
+   "contactInfo",
+   "businessInfo",
+   "operationalInfo"
+ ],
+ "properties": {
+   "pre_registration_source": {
+     "title": "Event id",
+     "description": "The unique identifier for the event through which the user pre-registered.",
+     "type": "string"
+   },
+   "personalInfo": {
+     "type": "object",
+     "title": "Personal Information",
+     "description": "Details about the individual representative",
+     "required": [
+       "name"
+     ],
+     "properties": {
+       "name": {
+         "title": "Full Name",
+         "description": "The full name of the individual or business representative.",
+         "type": "string"
+       }
+     }
+   },
+   "contactInfo": {
+     "type": "object",
+     "title": "Contact Information",
+     "description": "All contact details for communication",
+     "required": [
+       "email",
+       "phone_number",
+       "preffered_mode_of_contact"
+     ],
+     "properties": {
+       "email": {
+         "title": "Email",
+         "description": "The email address of the individual or business.",
+         "type": "string",
+         "format": "email"
+       },
+       "phone_number": {
+         "title": "Phone Number",
+         "description": "The primary phone number of the user, including the country code. (e.g., +91XXXXXXXXXX)",
+         "type": "string",
+         "pattern": "^\\+91[6-9]\\d{9}$"
+       },
+       "is_phone_and_whatsapp_same": {
+         "title": "Are Phone and WhatsApp Numbers the Same?",
+         "description": "Indicates whether the phone number is also used for WhatsApp.",
+         "type": "boolean",
+         "default": false
+       },
+       "whatsapp_number": {
+         "title": "WhatsApp Number",
+         "description": "The contact number used for WhatsApp messaging, including the country code (e.g., +91XXXXXXXXXX).",
+         "type": "string",
+         "pattern": "^(\\+91[-\\s]?)?[6-9]\\d{9}$"
+       },
+       "preffered_mode_of_contact": {
+         "type": "string",
+         "title": "Contact Preference",
+         "description": "The preferred communication channel for the user (e.g., Email, Phone, WhatsApp).",
+         "enum": [
+           "EMAIL",
+           "PHONE",
+           "WHATSAPP"
+         ],
+         "enumNames": [
+           "Email",
+           "Phone",
+           "WhatsApp"
+         ]
+       }
+     }
+   },
+   "businessInfo": {
+     "type": "object",
+     "title": "Business Information",
+     "description": "Details about the business entity",
+     "required": [
+       "brand",
+       "website",
+       "type_of_business",
+       "category"
+     ],
+     "properties": {
+       "brand": {
+         "title": "Brand",
+         "description": "The name of the brand or business represented.",
+         "type": "string"
+       },
+       "website": {
+         "title": "Website Link",
+         "description": "The official website URL of the business or brand.",
+         "type": "string",
+         "format": "uri"
+       },
+       "gst": {
+         "title": "GST",
+         "description": "The Goods and Services Tax (GST) number of the business.",
+         "type": "string"
+       },
+       "type_of_business": {
+         "type": "string",
+         "description": "The legal structure of the business (e.g., Sole Proprietorship, LLP).",
+         "title": "Type of Business",
+         "enum": [
+           "SOLE_PROPRIETORSHIP",
+           "PARTNERSHIP",
+           "LLP",
+           "PVT_LTD"
+         ],
+         "enumNames": [
+           "Sole Proprietorship",
+           "Partnership",
+           "LLP",
+           "Private Ltd."
+         ]
+       },
+       "category": {
+         "type": "string",
+         "title": "Product Category",
+         "description": "The primary category of products or services offered by the business.",
+         "enum": [
+           "ELECTRONICS",
+           "FASHION",
+           "HOME_AND_KITCHEN",
+           "BEAUTY_AND_PERSONAL_CARE",
+           "HEALTH_AND_WELLNESS",
+           "SPORTS_AND_FITNESS",
+           "TOYS_AND_GAMES",
+           "BOOKS",
+           "AUTOMOTIVE",
+           "GROCERY_AND_GOURMET_FOODS",
+           "FURNITURE_AND_DECOR",
+           "APPLIANCES",
+           "BABY_PRODUCTS",
+           "PET_SUPPLIES",
+           "TRAVEL_AND_LUGGAGE",
+           "OTHERS"
+         ],
+         "enumNames": [
+           "Electronics",
+           "Fashion",
+           "Home And Kitchen",
+           "Beauty And Personal Care",
+           "Health And Wellness",
+           "Sports And Fitness",
+           "Toys And Games",
+           "Books",
+           "Automotive",
+           "Grocery And Gourmet Foods",
+           "Furniture And Decor",
+           "Appliances",
+           "Baby Products",
+           "Pet Supplies",
+           "Travel And Luggage",
+           "Others"
+         ]
+       },
+       "social_media": {
+         "type": "object",
+         "title": "Social Media",
+         "description": "Social media handles of the business",
+         "properties": {
+           "ig_handle": {
+             "title": "Instagram Handle",
+             "description": "The Instagram username of the brand or individual (e.g., @brandname).",
+             "type": "string"
+           }
+         }
+       }
+     }
+   },
+   "operationalInfo": {
+     "type": "object",
+     "title": "Operational Information",
+     "description": "Details about business operations and scale",
+     "required": [
+       "operating_years",
+       "active_channels",
+       "monthly_gmv",
+       "monthly_manufactured_units",
+       "monthly_fullfilled_orders"
+     ],
+     "properties": {
+       "operating_years": {
+         "type": "string",
+         "description": "The number of years the business has been operational.",
+         "title": "Years In Operating",
+         "enum": [
+           "1_YEAR",
+           "2_TO_4_YEARS",
+           "5_TO_8_YEARS",
+           "MORE_THAN_8_YEARS"
+         ],
+         "enumNames": [
+           "1 Year",
+           "2-4 Years",
+           "5-8 Years",
+           ">8 Years"
+         ]
+       },
+       "sales_channels": {
+         "type": "object",
+         "title": "Sales Channels",
+         "description": "Information about sales channels",
+         "required": [
+           "active_channels"
+         ],
+         "properties": {
+           "active_channels": {
+             "type": "array",
+             "description": "The platforms or channels through which the business sells its products (e.g., Amazon, Flipkart, exclusive outlets).",
+             "title": "Active Channels",
+             "items": {
+               "type": "string",
+               "enum": [
+                 "AMAZON",
+                 "FLIPKART",
+                 "MYNTRA",
+                 "MEESHO",
+                 "MULTI_BRAND_OUTLET",
+                 "EXCLUSIVE_BRAND_OUTLET",
+                 "OTHERS",
+                 "NONE"
+               ],
+               "enumNames": [
+                 "Amazon",
+                 "Flipkart",
+                 "Myntra",
+                 "Meesho",
+                 "Multi Brand Outlet - MBO",
+                 "Exclusive Brand Outlet - EBO",
+                 "Others",
+                 "None"
+               ]
+             }
+           }
+         }
+       },
+       "business_metrics": {
+         "type": "object",
+         "title": "Business Metrics",
+         "description": "Key business performance indicators",
+         "required": [
+           "monthly_gmv",
+           "monthly_manufactured_units",
+           "monthly_fullfilled_orders"
+         ],
+         "properties": {
+           "monthly_gmv": {
+             "type": "string",
+             "description": "The total monetary value of goods sold monthly by the business.",
+             "title": "Gross Merchandise Value - (Monthly)",
+             "enum": [
+               "0_TO_5L",
+               "5L_TO_10L",
+               "10L_TO_25L",
+               "25L_TO_1CR",
+               "MORE_THAN_1CR"
+             ],
+             "enumNames": [
+               "0-5L",
+               "5L-10L",
+               "10L-25L",
+               "25L-1CR",
+               " >1 Cr"
+             ]
+           },
+           "monthly_manufactured_units": {
+             "type": "integer",
+             "description": "The number of units produced by the business in a month.",
+             "title": "Monthly Manufactured Units",
+             "minimum": 0
+           },
+           "monthly_fullfilled_orders": {
+             "type": "integer",
+             "description": "The number of orders successfully delivered by the business in a month.",
+             "title": "Monthly Fullfilled Units",
+             "minimum": 0
+           }
+         }
+       }
+     }
+   }
+ },
+ "allOf": [
+   {
+     "if": {
+       "properties": {
+         "contactInfo": {
+           "properties": {
+             "is_phone_and_whatsapp_same": {
+               "const": true
+             }
+           }
+         }
+       }
+     },
+     "then": {
+       "properties": {
+         "contactInfo": {
+           "properties": {
+             "whatsapp_number": {
+               "readOnly": true
+             }
+           }
+         }
+       }
+     }
+   },
+   {
+     "if": {
+       "properties": {
+         "contactInfo": {
+           "properties": {
+             "preffered_mode_of_contact": {
+               "const": "WHATSAPP"
+             }
+           }
+         }
+       }
+     },
+     "then": {
+       "required": [
+         "contactInfo"
+       ],
+       "properties": {
+         "contactInfo": {
+           "required": [
+             "whatsapp_number"
+           ]
+         }
+       }
+     }
+   }
+ ]
+}
